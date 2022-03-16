@@ -1,25 +1,81 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useState } from 'react'
+import TextField from '@mui/material/TextField'
+import AutoComplete from './components/Autocomplete'
+import Select from './components/Select'
+import Card from './components/Card'
+import Button from './components/Button'
+import predictService from './services/predict'
+import '@fontsource/public-sans'
+import './App.css'
 
-function App() {
+const App = () => {
+  const [symbol, setSymbol] = useState({})
+  const [price, setPrice] = useState('')
+  const [candles, setCandles] = useState('')
+  const [interval, setinterval] = useState('')
+  const [result, setResult] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [show, setShow] = useState(false)
+
+  const handlePriceChange = (event) => {
+		setPrice(event.target.value)
+	}
+
+  const handleCandlesChange = (event) => {
+    setCandles(event.target.value)
+  }
+
+  const handleIntervalChange = (event) => {
+    setinterval(event.target.value)
+  }
+
+  const setDisabled = () => {
+    return !price || !candles || !symbol || !interval
+  }
+
+  const setLoad = () => {
+    setLoading(true)
+    setShow(false)
+    predictService.predict(symbol, interval, price, candles)
+    .then((val) => {
+      setLoading(false)
+      setResult(val[0])
+      setShow(true)
+    })
+  }
+
+  const card = document.getElementById('predict-card');
+
+  if (show === true) {
+    if (card !== null)
+      card.style.visibility = 'visible'
+  }
+  else {
+    if (card !== null)
+      card.style.visibility = 'hidden'
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <div className='page-wrap'>
+        <h2>Stock Price Analysis</h2>
+        <AutoComplete setSymbol={setSymbol}/>
+        <div style={{paddingTop: '0.8%'}}>
+          <TextField value={price} onChange={handlePriceChange} label="Price"/>
+        </div>
+        <div style={{paddingTop: '0.8%'}}>
+          <TextField value={candles} onChange={handleCandlesChange} label="Candles"/>
+        </div>
+        <Select interval={interval} handleIntervalChange={handleIntervalChange}/>
+        <Button onClick={setLoad} isDisabled={setDisabled()}></Button>
+        <Card loading={loading} result={result}></Card>
+      </div>
+      <footer className='footer'>
+        <em>Website developed by: Samartha S R, 2022<br />
+        <a href="https://www.github.com/Electronica-dev">GitHub</a></em>
+      </footer>
+    </>
+  )
 }
 
 export default App;
