@@ -30,7 +30,7 @@ const App = () => {
   }
 
   const setDisabled = () => {
-    return !price || !candles || !symbol || !interval
+    return !price || !candles || !symbol || !interval || loading
   }
 
   const setLoad = () => {
