@@ -39,7 +39,7 @@ const App = () => {
     predictService.predict(symbol, interval, price, candles)
     .then((val) => {
       setLoading(false)
-      setResult(val[0])
+      setResult(val)
       setShow(true)
     })
   }
