@@ -21,7 +21,7 @@ const SelectComponent = ({ interval, handleIntervalChange }) => {
           <MenuItem value={'5m'}>5 minutes</MenuItem>
           <MenuItem value={'15m'}>15 minutes</MenuItem>
           <MenuItem value={'1d'}>1 day</MenuItem>
-          <MenuItem value={'1w'}>1 week</MenuItem>
+          <MenuItem value={'1wk'}>1 week</MenuItem>
           <MenuItem value={'1mo'}>1 month</MenuItem>
         </Select>
       </FormControl>
