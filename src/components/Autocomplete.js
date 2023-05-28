@@ -45,6 +45,9 @@ const AutocompleteComponent = ({ setSymbol }) => {
         }
       }
       onChange={(event, value, reason) => {
+          if (value === null) {
+            setSymbol(null)
+          }
           if(reason === 'selectOption') {
             if (value.exchange === 'NSE') {
               setSymbol(value.label.concat('.NS'))
@@ -52,7 +55,6 @@ const AutocompleteComponent = ({ setSymbol }) => {
             else if (value.exchange === 'BSE') {
               setSymbol(value.label.concat('.BO'))
             }
-            // setSymbol({label: value.label, exc: value.exchange})
             setOpen(false)
           }
         }
