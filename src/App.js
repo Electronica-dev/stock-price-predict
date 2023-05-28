@@ -4,6 +4,7 @@ import AutoComplete from './components/Autocomplete'
 import Select from './components/Select'
 import Card from './components/Card'
 import Button from './components/Button'
+import Disclaimer from './components/Disclaimer'
 import predictService from './services/predict'
 import '@fontsource/public-sans'
 import './App.css'
@@ -58,22 +59,31 @@ const App = () => {
   return (
     <>
       <div className='page-wrap'>
+        <Disclaimer/>
         <h2>Stock Price Analysis</h2>
         <AutoComplete setSymbol={setSymbol}/>
         <div style={{paddingTop: '0.8%'}}>
-          <TextField value={price} onChange={handlePriceChange} label="Price"/>
+          <TextField
+            value={price}
+            onChange={handlePriceChange}
+            label="Price"
+          />
         </div>
         <div style={{paddingTop: '0.8%'}}>
-          <TextField value={candles} onChange={handleCandlesChange} label="Candles"/>
+          <TextField
+            value={candles}
+            onChange={handleCandlesChange}
+            label="Candles"
+          />
         </div>
         <Select interval={interval} handleIntervalChange={handleIntervalChange}/>
-        <Button onClick={setLoad} isDisabled={setDisabled()}></Button>
+        <Button
+          onClick={setLoad}
+          isDisabled={setDisabled()}
+          text="predict"
+        />
         <Card loading={loading} result={result}></Card>
       </div>
-      <footer className='footer'>
-        <em>Website developed by: Samartha S R, 2022<br />
-        <a href="https://www.github.com/Electronica-dev">GitHub</a></em>
-      </footer>
     </>
   )
 }
