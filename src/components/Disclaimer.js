@@ -7,15 +7,18 @@ import Modal from '@mui/material/Modal';
 import Button from './Button';
 
 export default function Disclaimer() {
+  const agreed = sessionStorage.getItem('disclaimer')
   const [modal, setModal] = useState(false)
 
   const handlePopup = (e) => {
-    console.log('inside handlepopup');
+    sessionStorage.setItem('disclaimer', 'agreed')
     setModal(false)
   }
 
   useEffect(() => {
-    setModal(true);
+    if (agreed !== 'agreed') {
+      setModal(true);
+    }
   }, [])
 
   return (
