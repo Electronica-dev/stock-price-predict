@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-const buttonComponent = ({ onClick, isDisabled }) => {
+const buttonComponent = ({ onClick, isDisabled, text }) => {
   return (
     <div style={{paddingTop: '0.3%'}}>
     <Button
@@ -10,7 +10,7 @@ const buttonComponent = ({ onClick, isDisabled }) => {
       onClick={onClick}
       disabled={isDisabled}
     >
-      predict
+      {text}
     </Button>
   </div>
 )}
